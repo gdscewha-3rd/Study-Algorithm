@@ -12,10 +12,10 @@ public:
             int pair = target - num;
           
             //find the pair that makes the target number when it is added with the num
-            int index = std::find(nums.begin(), nums.end(), pair) - nums.begin();
-          
-            //it has to be a different number with the num
-            if((index < nums.size()) && (index != i)){
+            //it has to be different from the num
+            int index = std::find(nums.begin()+i+1, nums.end(), pair) - nums.begin();
+
+            if((index < nums.size())){
                 output.push_back(i);
                 output.push_back(index);
                 break;
