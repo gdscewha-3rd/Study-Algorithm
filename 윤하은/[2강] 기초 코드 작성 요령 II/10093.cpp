@@ -1,5 +1,5 @@
 //220323
-//백준 10093 숫자 문제
+//백준 10093 숫자 문제(브론즈 2)
 //https://www.acmicpc.net/problem/10093
 
 #include <iostream>
