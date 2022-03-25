@@ -1,15 +1,14 @@
-# 문제 : https://www.acmicpc.net/problem/1010
-# https://lar542.github.io/Python/2019-07-11-python2/
+# 220325
+# 백준 1010 : https://www.acmicpc.net/problem/1010
+# https://yoonsang-it.tistory.com/33
 
 
-from itertools import combinations
+import math
+
 
 T = int(input())
-arr = [list(map(int, input().split())) for _ in range(T)]
 
-# print(arr)
-
-for i in arr:
-    i.sort(reverse=True)
-    N = list(j for j in range(i[0]))
-    print(len(list(combinations(N, i[1]))))
+for _ in range(T):
+    n, m = map(int, input().split())
+    ans = math.factorial(m) // (math.factorial(n) * math.factorial(m - n))
+    print(ans)
