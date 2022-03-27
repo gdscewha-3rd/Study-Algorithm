@@ -22,7 +22,7 @@ def solution(answers):
             count[1] += 1
         if answers[i] == a3[i]:
             count[2] += 1
-    # print(count.index(max(count)))
+            
     answer = []
     for _ in range(3):
         if count[_] == max(count):
