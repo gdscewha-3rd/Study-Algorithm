@@ -14,10 +14,11 @@ public:
         vector<int> results;
         
         for (int i = 0; i<mat.size(); i++){
-            sums.push_back(make_pair(accumulate(mat[i].begin(), mat[i].end(), 0), i));
+            int sum_row = accumulate(mat[i].begin(), mat[i].end(), 0)
+            sums.push_back(make_pair(sum_row, i));
         }
         
-        
+        //sort it by weakest to strongest, ascending sort
         sort(sums.begin(), sums.end());
         
         for (int i = 0; i<k; i++){
