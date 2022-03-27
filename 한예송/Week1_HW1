@@ -1,0 +1,30 @@
+//220327
+//프로그래머스 코딩테스트 연습 모의고사
+//https://programmers.co.kr/learn/courses/30/lessons/42840
+
+def solution(answers):
+    test_len = len(answers)
+    ans1 = [1, 2, 3, 4, 5]
+    ans2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    ans3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    a1 = []
+    a2 = []
+    a3 = []
+    count = [0, 0, 0]
+    for i in range(test_len):
+        a1.append(ans1[i%5])
+        a2.append(ans2[i%8])
+        a3.append(ans3[i%10])
+    
+        if answers[i] == a1[i]:
+            count[0] += 1
+        if answers[i] == a2[i]:
+            count[1] += 1
+        if answers[i] == a3[i]:
+            count[2] += 1
+    # print(count.index(max(count)))
+    answer = []
+    for _ in range(3):
+        if count[_] == max(count):
+            answer.append(_+1)
+    return answer
