@@ -2,12 +2,12 @@
 # 문제 : 백준 108080 : https://www.acmicpc.net/problem/10808
 
 N = input()
-dic = {}
-for i in range(ord("a"), ord("z")+1):
-    dic[i] = 0
+# print(ord("z")-ord("a"))
+res = [0]*(ord("z")-ord("a")+1)
 
 for i in N:
-    dic[ord(i)] += 1
+    # print(ord(i)-ord("a"))
+    res[ord(i)-ord("a")] += 1
 
-for i in dic.values():
+for i in res:
     print(i, end=" ")
