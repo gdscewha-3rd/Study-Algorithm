@@ -4,17 +4,21 @@
 
 N = int(input())
 arr = sorted(list(map(int, input().split())))
+
 M = int(input())
-res = {}
-cnt = 0
-# print(arr)
+left, right = 0, N-1
+res = 0
 
-for i in arr:
-    if (M-i) <= 0:
-        continue
+while left < right:
+    #print(arr[left], arr[right])
+    temp = arr[left]+arr[right]
+    # print("###", temp)
+    if M == (temp):
+        res += 1
+        left += 1
+    elif M < temp:
+        right -= 1
     else:
-        if ((M-i) in arr) and i < M-i:
-            cnt += 1
+        left += 1
 
-# print(res)
-print(cnt)
+print(res)
