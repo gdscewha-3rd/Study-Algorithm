@@ -1,3 +1,5 @@
+# 배열
+
 [문제집 링크](https://www.acmicpc.net/workbook/view/7307)
 
 | 문제 분류 | 문제 | 문제 제목 | 결과 |
