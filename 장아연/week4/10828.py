@@ -1,11 +1,11 @@
 # https://www.acmicpc.net/problem/10828
 
-from collections import deque
-N = int(input())
-st = deque()
+import sys
+N = int(sys.stdin.readline())
+st = []
 
 for _ in range(N):
-    arr = input().split()
+    arr = sys.stdin.readline().split()
     if (arr[0] == "push"):
         # print(int(arr[1]))
         st.append(int(arr[1]))
