@@ -1,6 +1,6 @@
 //220411
 //백준 1158번 요세푸스 문제 (실버 4)
-//boj.kr/1158
+//boj.kr/1158 
 
 #include <bits/stdc++.h>
 using namespace std;
