@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/17298
+
 import sys
 input = sys.stdin.readline
 
@@ -8,7 +10,7 @@ stack = []
 
 
 for i in range(N):
-    while stack and arr[stack[-1]] <= arr[i]:
+    while stack and arr[stack[-1]] < arr[i]:
         res[stack.pop()] = arr[i]
     stack.append(i)
 print(" ".join(map(str, res)))
