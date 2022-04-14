@@ -6,9 +6,8 @@ input = sys.stdin.readline
 
 
 N = int(input())
-que = deque([])
-for i in range(N):
-    que.append(i+1)
+que = deque([i for i in range(1, N+1)])
+
 
 while len(que) > 1:
     que.popleft()
