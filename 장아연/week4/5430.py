@@ -7,26 +7,29 @@ input = sys.stdin.readline
 N = int(input())
 
 for _ in range(N):
-    cmd = list(input())
+    cmd = input().strip()
     M = int(input())
-    arr = input().strip()[1:-1]
-    if arr:
-        que = deque(list(map(int, arr.split(","))))
     flag = True
-    if M:
-        for i in cmd:
-            # print(i, que)s
-            if i == "R":
-                que.reverse()
-            elif i == "D":
-                if not(que):
-                    print("error")
-                    flag = False
-                    break
-                else:
+    que = deque(input().strip()[1:-1].split(','))
+    R_cnt = 0
+    if M == 0:
+        que = deque()
+    for i in cmd:
+        if i == "R":
+            R_cnt += 1
+        elif i == "D":
+            if len(que) == 0:
+                print("error")
+                flag = False
+                break
+            else:
+                if R_cnt % 2 == 0:
                     que.popleft()
+                else:
+                    que.pop()
+    if not(flag):
+        continue
     else:
-        flag = False
-        print("error")
-    if flag:
-        print(list(que))
+        if R_cnt % 2 != 0:
+            que.reverse()
+        print('[' + ",".join(que) + ']')
