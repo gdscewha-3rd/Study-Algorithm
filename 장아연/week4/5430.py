@@ -11,10 +11,13 @@ for _ in range(N):
     M = int(input())
     flag = True
     que = deque(input().strip()[1:-1].split(','))
+    print(cmd, M, que)
     R_cnt = 0
     if M == 0:
         que = deque()
+    print(que)
     for i in cmd:
+        print(i)
         if i == "R":
             R_cnt += 1
         elif i == "D":
