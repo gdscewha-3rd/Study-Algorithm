@@ -1,0 +1,17 @@
+//220508
+//프로그래머스 코딩테스트 연습 폰켓몬
+//https://programmers.co.kr/learn/courses/30/lessons/1845?language=python3
+
+def solution(nums):
+    ans = 0
+    unique = []
+    for each in nums:
+        if each not in unique:
+            unique.append(each)
+        else:
+            continue
+    if len(unique) > (len(nums)/2):
+        ans = len(nums)/2
+    else:
+        ans = len(unique)
+    return ans
