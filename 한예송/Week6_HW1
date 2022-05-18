@@ -1,0 +1,21 @@
+//220515
+//프로그래머스 코딩테스트 연습 오픈채팅방
+//https://programmers.co.kr/learn/courses/30/lessons/42888?language=python3
+
+def solution(record):
+    status = {
+        "Enter" : "님이 들어왔습니다.",
+        "Leave" : "님이 나갔습니다."
+    }
+    people = {}
+    book = []
+    message = []
+    for each in record:
+        message = each.split( )
+        if message[0] != "Leave":
+            people[message[1]] = message[2]
+    for each in record:
+        message = each.split( )
+        if message[0] in status:
+            book.append(people[message[1]]+status[message[0]])
+    return book
