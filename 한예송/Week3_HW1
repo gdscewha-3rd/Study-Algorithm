@@ -1,0 +1,33 @@
+//220410
+//프로그래머스 코딩테스트 연습 소수 찾기
+//https://programmers.co.kr/learn/courses/30/lessons/42839
+
+def solution(numbers):
+    from itertools import permutations
+    ans = []
+    def forlen(len):
+        global nums
+        nums = [''.join(p) for p in permutations(numbers,len)]
+        for num in nums:
+            num = int(num)
+            ans.append(num)
+        
+    for i in range(len(numbers)):
+        forlen(i+1)
+        
+    ans = sorted(set(ans))
+    answer = []
+    
+    def isit(num):
+        if num <= 1:
+            return False
+        for i in range(2, num):
+            if num % i == 0:
+                return False
+        return True
+    
+    for one in ans:
+        if isit(one) == True:
+            answer.append(one)
+        
+    return len(answer)
