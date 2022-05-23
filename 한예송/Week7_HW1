@@ -1,0 +1,29 @@
+//220522
+//백준 9610번 사분면
+//https://www.acmicpc.net/problem/9610
+
+n = int(input())
+points = [0,0,0,0,0]
+for _ in range(n):
+    x, y = map(int, input().split( ))
+    if x > 0:
+        if y > 0:    # Q1
+            points[0] += 1
+        elif y< 0:    # Q4
+            points[3] += 1
+        else:    # AXIS
+            points[4] += 1
+    elif x < 0:
+        if y > 0:    # Q2
+            points[1] += 1
+        elif y< 0:    # Q3
+            points[2] += 1
+        else:    # AXIS
+            points[4] += 1
+    else:    # AXIS
+        points[4] += 1
+print("Q1:", points[0])
+print("Q2:", points[1])
+print("Q3:", points[2])
+print("Q4:", points[3])
+print("AXIS:", points[4])
