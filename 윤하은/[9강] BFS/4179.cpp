@@ -1,98 +1,125 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 char board[1000][1000];
+bool fire[1000][1000];
 int dist[1000][1000];
-
-//상하좌우 순으로 접근
 int dx[4] = {-1, 1, 0, 0};
 int dy[4] = {0, 0, -1, 1};
-
+int row, col;
+typedef struct
+{
+    int x;
+    int y;
+    char blockType;
+    
+}block;
+bool isEdge(int x, int y)
+{
+    if(x == 0 || x == row-1 || y == 0 || y == col-1)
+     return true;
+    else return false;
+}
+void printBoard()
+{
+    for(int i = 0 ;i<row; i++)
+    {
+        for(int j = 0; j<col; j++)
+        {
+            if(fire[i][j]) cout << "F";
+            else if(board[i][j] == '#') cout << 'x';
+            else cout << dist[i][j];
+            cout << " ";
+        }
+        cout << "\n";
+    }
+    
+    cout << "\n";
+    
+}
 int main(void)
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int row, col;
     cin >> row >> col;
     
-    queue<pair<int, int>> q;
-    
-    //dist 배열에서 불길은 -1로 표현
-    //거리는 1부터 표현 (결과 낼 때 -1해주기)
-    //방문안한 부분 -> 0인 것 주의
+    queue<block> q;
+    int jx, jy;
     
     for(int i = 0; i<row; i++)
     {
         for(int j = 0; j<col; j++)
         {
             cin >> board[i][j];
-            if(board[i][j] == 'J')
+            if(board[i][j] == 'F')
             {
-                dist[i][j] = 1;
-                q.push({i, j});
-                //cout << "push Jihoon " << i << ", " << j << "\n";
-            }
-            else if(board[i][j] == 'F')
-            {
-                dist[i][j] = -1;
-                q.push({i, j});
+                fire[i][j] = true;
+                q.push({i, j, board[i][j]});
                 //cout << "push Fire " << i << ", " << j << "\n";
+            }
+            else if(board[i][j] == 'J')
+            {
+                jx = i;
+                jy = j;
             }
         }
     }
     
     bool escapeSuccess = false;
-    int result = 0;
+    int result = 1;
     
-    while(!q.empty())
+    if(isEdge(jx, jy)) escapeSuccess = true;
+    dist[jx][jy] = 1;
+    q.push({jx, jy, board[jx][jy]});
+    
+    
+    while(!q.empty() && !escapeSuccess)
     {
         
-        pair<int, int> cur = q.front();
+        block cur = q.front();
         q.pop();
+        
+        //printBoard(row, col);
         
         for(int i = 0; i<4; i++)
         {
-            int nx = cur.first + dx[i];
-            int ny = cur.second + dy[i];
+            int nx = cur.x + dx[i];
+            int ny = cur.y + dy[i];
             //cout << nx <<", "<< ny << "\n";
-            if(board[nx][ny] == '#' || dist[nx][ny] != 0) {
-                //cout << "check1\n"; 
+        
+            if(board[nx][ny] == '#') continue;
+            if(nx < 0 || nx >= row || ny < 0 || ny >= col) 
                 continue;
                 
-            }
-            if(nx < 0 || nx >= row || ny < 0 || ny >= col) 
-            {
-                //cout << "check2\n"; 
-                continue;
-            }
-            int curState = dist[cur.first][cur.second];
             //불길일 경우
-            if(curState == -1)
+            if(cur.blockType == 'F')
             {
-                dist[nx][ny] = -1;
-                q.push({nx, ny});
+                //이미 불길이 번진 칸일 경우
+                if(fire[nx][ny]) continue;
+                fire[nx][ny] = true;
+                q.push({nx, ny, 'F'});
             }
+            //지훈이가 갈 수 있는 길일 경우
             else
             {
-                dist[nx][ny] = curState+1;
-                q.push({nx, ny});
-                //가장 자리에 도달
-                if(nx == 0 || nx == row-1 || ny == 0 || ny == col-1)
-                {
-                    result = dist[nx][ny];
+                if(dist[nx][ny] != 0 || fire[nx][ny]) continue;
+                dist[nx][ny] = dist[cur.x][cur.y]+1;
+                //가장자리에 도달
+                if(isEdge(nx, ny))
+                {    
                     escapeSuccess = true;
+                    result = dist[nx][ny];
                     break;
                 }
-                
+                q.push({nx, ny, 'J'});
             }
-            //cout << dist[nx][ny] << " : " << nx <<", "<< ny << "\n";
             
         }
     }
     
     if(escapeSuccess) cout << result;
     else cout << "IMPOSSIBLE";
+    
     
     
 }
