@@ -1,5 +1,4 @@
 //220319
-//백준 1000번 A+B 문제 (브론즈 5)
 //https://www.acmicpc.net/problem/1000
 
 #include <iostream>
