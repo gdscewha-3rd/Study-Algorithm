@@ -24,7 +24,7 @@ void func(int k)
     {
         for(int i = 0; i< n; i++)
         {
-            if((!nums[i].second) && (nums[i].first > arr[i]))
+            if((!nums[i].second) && (nums[i].first > arr[k-1]))
             {
                 nums[i].second = true;
                 arr[k] = nums[i].first;
