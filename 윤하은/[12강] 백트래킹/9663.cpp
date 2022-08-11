@@ -2,7 +2,9 @@
 using namespace std;
 int n;
 int cnt;
-int board[20][20];
+bool board[20][20];
+//board[x][y] == true //x행 y열에 퀸 말을 배치함
+
 void printBoard()
 {
     for(int i = 0; i<n; i++)
@@ -13,98 +15,40 @@ void printBoard()
     }
     cout << "\n";
 }
-void cannotExist(int targetX, int targetY)
+bool canPutQueen(int x, int y)
 {
+    //같은 열, 행에 퀸이 존재하는지 확인
     for(int i = 0; i<n; i++)
     {
-        board[targetX][i] = 1;
-        board[i][targetY] = 1;
+        if(board[x][i]) return false;
+        if(board[i][y]) return false;
     }
-    int x = targetX;
-    int y = targetY;
-    
-    while(x >= 0 && x < n && y >= 0 && y < n)
+
+    //대각선 확인 순서 : 왼쪽위, 오른쪽위, 왼쪽아래, 오른쪽아래
+    int dx[4] = {-1, 1, -1, 1};
+    int dy[4] = {-1, -1, 1, 1};
+
+    for(int i = 0; i<4; i++)
     {
-        board[x++][y++] = 1;
+        int targetX = x + dx[i];
+        int targetY = y + dy[i];
+
+        while(targetX >= 0 && targetX < n && targetY >=0 && targetY < n)
+        {
+            if(board[targetX][targetY]) return false;
+            targetX += dx[i];
+            targetY += dy[i];
+        }
     }
 
-    x = targetX;
-    y = targetY;
-
-    while(x >= 0 && x < n && y >= 0 && y < n)
-    {
-        board[x--][y--] = 1;
-    }
-
-    x = targetX;
-    y = targetY;
-
-    while(x >= 0 && x < n && y >= 0 && y < n)
-    {
-        board[x++][y--] = 1;
-    }
-
-    x = targetX;
-    x = targetY;
-
-    while(x >= 0 && x < n && y >= 0 && y < n)
-    {
-        board[x--][y++] = 1;
-    }
-
-    return;
-}
-void canExist(int targetX, int targetY)
-{
-    for(int i = 0; i<n; i++)
-    {
-        board[targetX][i] = 0;
-        board[i][targetY] = 0;
-    }
-    int x = targetX;
-    int y = targetY;
-    
-    while(x >= 0 && x < n && y >= 0 && y < n)
-    {
-        board[x++][y++] = 0;
-    }
-
-    x = targetX;
-    y = targetY;
-
-    while(x >= 0 && x < n && y >= 0 && y < n)
-    {
-        board[x--][y--] = 0;
-    }
-
-    x = targetX;
-    y = targetY;
-
-    while(x >= 0 && x < n && y >= 0 && y < n)
-    {
-        board[x++][y--] = 0;
-    }
-
-    x = targetX;
-    x = targetY;
-
-    while(x >= 0 && x < n && y >= 0 && y < n)
-    {
-        board[x--][y++] = 0;
-    }
-
-    return;
+    return true;
 }
 //cur 번째 행에 퀸 말 배치
 void func(int cur)
 {
     if(cur == n)
     {
-        if(cnt > 10)
-            exit(0);
         cnt++;
-        cout << "cnt" << cnt << "\n"; 
-        printBoard();
         return;
     }
     else
@@ -112,17 +56,11 @@ void func(int cur)
         
         for(int i = 0; i<n; i++)
         {
-            if(board[cur][i] == 0)
+            if(!board[cur][i] && canPutQueen(cur, i))
             {
-                cannotExist(cur, i);
-                board[cur][i] = 2;
-                cout << "***now board***\n";
-                printBoard();
+                board[cur][i] = true;
                 func(cur+1);
-                canExist(cur, i);
-                board[cur][i] = 0;
-                cout << "***now board***\n";
-                printBoard();
+                board[cur][i] = false;
             }
         }
         
