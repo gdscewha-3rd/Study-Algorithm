@@ -52,7 +52,8 @@ int main(void)
         }
         if(vowelNum >= 1 && consonantNum >= 2)
         {
-            //정해진 문자 조합으로 가능한 pw는 단 하나임 <- 오름차순이라는 조건이 있으니까
+            //오름차순이라는 조건이 있으니까
+            //정해진 문자 조합으로 가능한 pw는 단 하나임
             sort(pw.begin(), pw.end());
             printPW(pw);
 
